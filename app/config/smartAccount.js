@@ -1,14 +1,14 @@
 import { toSimpleSmartAccount } from 'permissionless/accounts'
 import { createPublicClient, http } from 'viem'
 import { toAccount } from 'viem/accounts'
-import { baseSepolia } from 'viem/chains'
+import { sepolia } from 'viem/chains'
 
 export const ENTRYPOINT_ADDRESS = '0x0000000071727De22E5E9d8BAf0edAc6f37da032'
 export const FACTORY_ADDRESS    = process.env.NEXT_PUBLIC_ACCOUNT_FACTORY_ADDRESS || ''
 
 export const publicClient = createPublicClient({
-  chain:     baseSepolia,
-  transport: http('https://sepolia.base.org'),
+  chain:     sepolia,
+  transport: http('https://ethereum-sepolia-rpc.publicnode.com'),
 })
 
 export const ownerAbi = [{
@@ -21,8 +21,6 @@ export async function buildSmartAccountFromWallet(walletClient, existingAddress)
   if (!walletClient?.account?.address) throw new Error('walletClient not ready')
   if (!FACTORY_ADDRESS)                throw new Error('FACTORY_ADDRESS not set')
 
-  // toAccount wrapper required: without it permissionless would derive
-  // the address incorrectly → AA14 error
   const owner = toAccount({
     address:         walletClient.account.address,
     signMessage:     ({ message }) => walletClient.signMessage({ message }),
@@ -43,7 +41,6 @@ export async function buildSmartAccountFromWallet(walletClient, existingAddress)
     const isDeployed = !!bytecode && bytecode !== '0x'
 
     if (isDeployed) {
-      // Remove factory data to avoid AA14 on already-deployed contracts
       account.address        = existingAddress
       account.getFactory     = async () => undefined
       account.getFactoryArgs = async () => ({ factory: undefined, factoryData: undefined })
