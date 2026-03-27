@@ -28,7 +28,7 @@ const short = addr => addr ? `${addr.slice(0, 8)}…${addr.slice(-6)}` : '—'
 
 export default function Home() {
   const { address, isConnected } = useAccount()
-  const { data: walletClient }   = useWalletClient({ chainId: 84532 })
+  const { data: walletClient }   = useWalletClient({ chainId: 11155111 })
   const { disconnect }           = useDisconnect()
   const { logs, log, clear }     = useLogger()
 
@@ -185,7 +185,7 @@ export default function Home() {
   const nextOwnerInPool = pool.find(a => !isCurrentOwner(a))
 
   const envMissing = [
-    !process.env.NEXT_PUBLIC_PAYMASTER_URL && 'NEXT_PUBLIC_PAYMASTER_URL',
+    !process.env.NEXT_PUBLIC_PIMLICO_API_KEY && 'NEXT_PUBLIC_PIMLICO_API_KEY',
     !process.env.NEXT_PUBLIC_ACCOUNT_FACTORY_ADDRESS && 'NEXT_PUBLIC_ACCOUNT_FACTORY_ADDRESS',
   ].filter(Boolean)
 
