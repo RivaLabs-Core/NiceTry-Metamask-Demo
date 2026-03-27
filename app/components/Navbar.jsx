@@ -61,7 +61,7 @@ export const Navbar = ({ onDisconnect }) => {
           </p>
           <div className="bg-[#231df9] w-[12px] h-[12px]  flex-shrink-0" />
           <p className="capitalize font-['Inter'] font-bold text-white text-[11px] tracking-[0.22px] whitespace-nowrap">
-            BaseSepolia
+            Sepolia
           </p>
         </div>
 
