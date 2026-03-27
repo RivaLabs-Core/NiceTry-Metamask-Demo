@@ -24,7 +24,7 @@ export function ConnectWallet({
   const { connect, connectors } = useConnect();
   const {disconnect} = useDisconnect()
 
-  if (isReconnecting) return <div>Reconnecting...</div>;
+  if (isReconnecting) return null;
 
   // ── Stato connesso + step >= 3: Smart Account + Active Signer + Transfer ──
   if (isConnected && address && currentStep !== undefined && currentStep >= 3) {
