@@ -263,8 +263,8 @@ export default function Home() {
 
       <div className="relative z-10 px-8 py-12 max-w-7xl mx-auto">
         <div className="text-center mb-12">
-          <h1 className="text-[36px] font-bold text-white mb-2">Key Rotation Wallet</h1>
-          <p className="text-[#3F56E3] text-[18px] uppercase tracking-wider font-semibold">Quantum-Safe Protocol</p>
+          <h1 className="text-[36px] font-bold text-white mb-2">Ephemeral keys wallet demo with Metamask</h1>
+          <p className="text-[#3F56E3] text-[18px] uppercase tracking-wider font-semibold">Quantum-Safe Design</p>
           <p className="text-[#7c847b] text-[14px] mt-4">Every UserOp rotates the signing key. Old keys are permanently invalidated onchain.</p>
         </div>
 
