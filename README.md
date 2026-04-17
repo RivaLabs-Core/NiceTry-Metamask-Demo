@@ -1,4 +1,4 @@
-# NiceTry-Metamask
+# NiceTry Demo Through Metamask and a dedicated webapp
 
 A demo web app that uses standard MetaMask signatures to drive NiceTry's ECDSA rotation mechanism. Please make sure to clear your cache after each demo run.
 
