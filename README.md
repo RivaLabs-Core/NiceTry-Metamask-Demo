@@ -1,5 +1,8 @@
 # NiceTry Demo Through Metamask and a dedicated webapp
 
+> [!TIP]
+> This repo covers a single demo. For the full NiceTry project see the [main repo](https://github.com/RivaLabs-Core/NiceTry) or the [docs](https://docs.nicetry.xyz/).
+
 A demo web app that uses standard MetaMask signatures to drive NiceTry's ECDSA rotation mechanism. Please make sure to clear your cache after each demo run.
 
 Live demo: [metamask.nicetry.xyz](https://metamask.nicetry.xyz/)
