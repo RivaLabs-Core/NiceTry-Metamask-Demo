@@ -1,36 +1,37 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# NiceTry-Metamask
 
-## Getting Started
+A demo web app that uses standard MetaMask signatures to drive NiceTry's ECDSA rotation mechanism. Please make sure to clear your cache after each demo run.
 
-First, run the development server:
+Live demo: [metamask.nicetry.xyz](https://metamask.nicetry.xyz/)
+
+## What this is
+
+This repo is the frontend for a single demo: showing that NiceTry's key rotation flow can be operated end-to-end from a standard wallet like MetaMask, without requiring any wallet-side changes, custom signer, or extension fork. Every signature the contract needs is produced through the normal MetaMask signing UX.
+
+It exists to test one specific thing. It is not a product, not a reference implementation, and not representative of the final NiceTry architecture.
+
+## Why the UX is intentionally bad
+
+The demo works, but using it is awkward by design. You have to manually switch MetaMask accounts between rotations, keep track of which address is the current signer, and accept that every send is also a rotation. It shows the rotation mechanism itself is sound and operable with nothing more than standard ECDSA signatures, while making it obvious that bolting this onto an existing wallet is not the right long-term shape. A native implementation, where key generation, rotation, and signer handoff happen inside the wallet itself, removes the account switching and the mental overhead entirely.
+
+## What you can do with it
+
+Connect MetaMask on Sepolia, create a smart account, then run the core loop: send ETH to a recipient while atomically rotating the account's owner to the next signer. Each rotation is one `UserOperation` whose `callData` packs `execute(recipient, amount, 0x)` with the next owner address appended. Switch MetaMask to that new signer and rotate again. Signatures are standard viem `signMessage` / `signTypedData` calls, so MetaMask only ever shows its normal signing popup.
+
+
+## Stack
+
+Next.js (App Router), JavaScript. Deployed on Vercel.
+
+## Running locally
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Then open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+## Status
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Demo only. Expect rough edges, hardcoded parameters, and code paths that exist purely to make the rotation visible in a browser. For the actual NiceTry design, rotation model, and security reasoning, see [docs.nicetry.xyz](https://docs.nicetry.xyz).
